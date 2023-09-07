@@ -2,7 +2,7 @@
    "name": "@hexlet/code",
    "version": "0.1.0",
    "type": "module",
-   "description": "hexlet node.js backend project #3",
+   "description": "hexlet node.js backend project #4",
    "engines": {
       "node": ">=16.x"
    },
@@ -21,7 +21,7 @@
          "dotenv/config"
       ]
    },
-   "author": "Stanislav Dzisiak",
+   "author": "denivladislav",
    "license": "ISC",
    "repository": {
       "type": "git",
