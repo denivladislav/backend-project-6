@@ -38,8 +38,15 @@ export default {
       },
       users: {
         id: 'ID',
+        firstname: 'Имя',
+        lastname: 'Фамилия',
+        fullname: 'Полное имя',
         email: 'Email',
         createdAt: 'Дата создания',
+        actions: 'Действия',
+        edit: 'Изменить',
+        save: 'Сохранить',
+        delete: 'Удалить',
         new: {
           submit: 'Сохранить',
           signUp: 'Регистрация',
