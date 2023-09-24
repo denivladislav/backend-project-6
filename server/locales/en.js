@@ -24,7 +24,21 @@ export default {
         },
         delete: {
           error: 'Failed to delete user',
-          success: 'User was successfully deleted',
+          success: 'User deleted successfully',
+        },
+      },
+      statuses: {
+        create: {
+          error: 'Failed to create status',
+          success: 'Status created successfully',
+        },
+        edit: {
+          error: 'Failed to change status',
+          success: 'Status changed successfully',
+        },
+        delete: {
+          error: 'Failed to delete status',
+          success: 'Status deleted successfully',
         },
       },
       accessError: 'Access denied! You can not edit or delete another user',
@@ -33,6 +47,7 @@ export default {
     layouts: {
       application: {
         users: 'Users',
+        statuses: 'Statuses',
         signIn: 'Login',
         signUp: 'Register',
         signOut: 'Logout',
@@ -60,6 +75,19 @@ export default {
         new: {
           submit: 'Register',
           signUp: 'Register',
+        },
+      },
+      statuses: {
+        id: 'ID',
+        name: 'Name',
+        createdAt: 'Created at',
+        actions: 'Actions',
+        edit: 'Edit',
+        save: 'Save',
+        delete: 'Delete',
+        new: {
+          createStatus: 'Create status',
+          create: 'Create',
         },
       },
       welcome: {

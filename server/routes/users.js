@@ -13,15 +13,12 @@ export default (app) => {
       const user = new app.objection.models.user();
       reply.render('users/new', { user });
     })
-    .get('/users/:id/edit', async (req, reply) => {
+    .get('/users/:id/edit', { name: 'editUser' }, async (req, reply) => {
       if (!req.isAuthenticated()) {
         req.flash('error', i18next.t('flash.authError'));
         reply.redirect(app.reverse('root'));
         return reply;
       }
-
-      console.log('req.user.id', req.user.id);
-      console.log('req.params.id', req.params.id);
 
       if (req.user.id !== Number(req.params.id)) {
         req.flash('error', i18next.t('flash.accessError'));
