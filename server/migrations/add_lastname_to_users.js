@@ -1,3 +1,5 @@
+// @ts-check
+
 export const up = (knex) => (
   knex.schema.table('users', (table) => {
     table.string('lastname')

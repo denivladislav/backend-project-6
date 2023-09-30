@@ -1,0 +1,32 @@
+extends ../layouts/application.pug
+
+block header
+  .d-flex.flex-column
+    = t('layouts.application.tasks')
+    div
+      a.btn.btn-primary(href=route('newTask'))= t('views.tasks.new.createTask')
+
+block content
+  table.table.table-striped
+    thead
+      tr
+        th= t('views.tasks.id')
+        th= t('views.tasks.name')
+        th= t('views.tasks.statusId')
+        th= t('views.tasks.creatorId')
+        th= t('views.tasks.executorId')
+        th= t('views.tasks.createdAt')
+        th= t('views.tasks.actions')
+    tbody
+      each task in tasks
+        tr
+          td= task.id
+          td= task.name
+          td= task.statusId
+          td= task.creatorId
+          td= task.executorId
+          td= formatDate(user.createdAt)
+          td
+            .d-flex.gap-1
+              //- a.btn.btn-primary(href=`/tasks/${task.id}/edit`)= t('views.users.edit')
+              //- +buttonTo(`/tasks/${task.id}`, 'delete')(class="btn btn-danger" value=t('views.users.delete'))

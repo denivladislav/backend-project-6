@@ -48,6 +48,7 @@ export default {
       application: {
         users: 'Users',
         statuses: 'Statuses',
+        tasks: 'Tasks',
         signIn: 'Login',
         signUp: 'Register',
         signOut: 'Logout',
@@ -55,6 +56,9 @@ export default {
     },
     views: {
       session: {
+        email: 'Email',
+        password: 'Password',
+        login: 'Login',
         new: {
           signIn: 'Login',
           submit: 'Login',
@@ -87,6 +91,26 @@ export default {
         delete: 'Delete',
         new: {
           createStatus: 'Create status',
+          create: 'Create',
+        },
+      },
+      tasks: {
+        id: 'ID',
+        name: 'Name',
+        createdAt: 'Created at',
+        status: 'Status',
+        statusId: 'Status ID',
+        creator: 'Creator',
+        creatorId: 'Creator ID',
+        executor: 'Executor',
+        executorId: 'Executor ID',
+        actions: 'Actions',
+        edit: 'Edit',
+        save: 'Save',
+        delete: 'Delete',
+        description: 'Description',
+        new: {
+          createTask: 'Create task',
           create: 'Create',
         },
       },

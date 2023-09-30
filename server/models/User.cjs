@@ -1,6 +1,7 @@
 // @ts-check
-
+const { Model } = require('objection');
 const objectionUnique = require('objection-unique');
+const path = require('path');
 const BaseModel = require('./BaseModel.cjs');
 const encrypt = require('../lib/secure.cjs');
 
@@ -31,5 +32,42 @@ module.exports = class User extends unique(BaseModel) {
 
   verifyPassword(password) {
     return encrypt(password) === this.passwordDigest;
+  }
+
+  static get relationMappings() {
+    return {
+      status: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, 'Status'),
+        join: {
+          from: 'users.id',
+          to: 'statuses.creator_id',
+        },
+      },
+      task: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, 'Task'),
+        join: {
+          from: 'users.id',
+          to: 'tasks.creator_id',
+        },
+      },
+      task_executor: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, 'Task'),
+        join: {
+          from: 'users.id',
+          to: 'tasks.executor_id',
+        },
+      },
+      label: {
+        relation: Model.HasManyRelation,
+        modelClass: path.join(__dirname, 'Label'),
+        join: {
+          from: 'users.id',
+          to: 'labels.creator_id',
+        },
+      },
+    };
   }
 };

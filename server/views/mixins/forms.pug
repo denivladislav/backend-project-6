@@ -5,14 +5,14 @@ mixin formFor(entity = null)
   form&attributes(attributes)
     block
 
-mixin input(entity, propertyName, errors = {})
+mixin input(entity, propertyName, label, errors = {})
   - propertyErrors = _.get(errors, propertyName)
   - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
   - inputId = getInputId(propertyName)
   .mb-3(class=(errors[propertyName] && 'has-danger'))
     label(
       for= inputId
-    )= propertyName
+    )= label
     input(
       id= inputId
       name=getInputName(propertyName)
@@ -21,6 +21,47 @@ mixin input(entity, propertyName, errors = {})
     )&attributes(attributes)
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+
+mixin select(entity, entityList = [], propertyName, label, errors = {})
+  - propertyErrors = _.get(errors, propertyName)
+  - classLine = 'form-control' + (_.isUndefined(propertyErrors) ? '' : ' is-invalid')
+  - inputId = getInputId(propertyName)
+  .mb-3.form-group(class=(errors[propertyName] && 'has-danger'))
+    label(
+      for= inputId
+    )= label
+    select(
+      id=inputId
+      name=getInputName(propertyName)
+      class=classLine
+    )&attributes(attributes)
+      option
+      each value in entityList
+        if isSameId(value, propertyName, entity)
+          option(value=value.id selected)= getEntityName(value, propertyName)
+        else
+          option(value=value.id)= getEntityName(value, propertyName)
+    if !_.isEmpty(propertyErrors)
+      .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
+  
+mixin selectList(entity, entityList, propertyName, label)
+  - inputId = getInputId(propertyName)
+  .form-group
+    label(
+      for= inputId
+    )= label
+    select(
+      id=inputId
+      name=propertyName
+      class="form-control"
+    )&attributes(attributes)
+      option
+      each value in entityList
+        if isSameId(value, propertyName, entity)
+          option(value=value.id selected)= getEntityName(value, propertyName)
+        else
+          option(value=value.id)= getEntityName(value, propertyName)
+
 
 mixin submit(form = null)
   input(class='btn btn-primary' type='submit')&attributes(attributes)

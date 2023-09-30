@@ -1,0 +1,14 @@
+extends ../layouts/application.pug
+
+block header
+  = t('views.tasks.new.createTask')
+
+block content
+  +formFor()(action=route('tasks') method='post')
+    +input(task, 'name', t('views.tasks.name'), errors)(type="text")
+    .mb-3.form-group
+      label(for="data_description")= t('views.tasks.description')
+      textarea.form-control(id="data_description" name="data[description]" rows="3")
+    +select(task, statuses, 'statusId', t('views.tasks.status'), errors)(type="text")
+    +select(task, executors, 'executorId', t('views.tasks.executor'), errors)(type="text")
+    +submit(task)(value=t('views.tasks.new.create'))

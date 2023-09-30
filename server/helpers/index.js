@@ -25,6 +25,33 @@ export default (app) => ({
         throw new Error(`Unknown flash type: '${type}'`);
     }
   },
+  isSameId({ id }, type, entity) {
+    const {
+      executorId,
+      executor,
+      statusId,
+      status,
+      labels,
+      label,
+    } = entity;
+    const [match] = type.match(/status|executor|label/ig);
+
+    switch (match) {
+      case 'executor':
+        return id === Number(executorId) || id === Number(executor);
+      case 'status':
+        return id === Number(statusId) || id === Number(status);
+      case 'label': {
+        const labelId = labels || label
+          ? [labels, label].flat().find((value) => id === Number(value))
+          : undefined;
+
+        return !_.isUndefined(labelId);
+      }
+      default:
+        return false;
+    }
+  },
   formatDate(str) {
     const date = new Date(str);
     return date.toLocaleString();
