@@ -12,21 +12,22 @@ block content
       tr
         th= t('views.tasks.id')
         th= t('views.tasks.name')
-        th= t('views.tasks.statusId')
-        th= t('views.tasks.creatorId')
-        th= t('views.tasks.executorId')
+        th= t('views.tasks.status')
+        th= t('views.tasks.creator')
+        th= t('views.tasks.executor')
         th= t('views.tasks.createdAt')
         th= t('views.tasks.actions')
     tbody
       each task in tasks
         tr
           td= task.id
-          td= task.name
-          td= task.statusId
-          td= task.creatorId
-          td= task.executorId
-          td= formatDate(user.createdAt)
+          td
+            a(href=`tasks/${task.id}`)= task.name
+          td= task.status
+          td= task.creator
+          td= task.executor
+          td= formatDate(task.createdAt)
           td
             .d-flex.gap-1
-              //- a.btn.btn-primary(href=`/tasks/${task.id}/edit`)= t('views.users.edit')
-              //- +buttonTo(`/tasks/${task.id}`, 'delete')(class="btn btn-danger" value=t('views.users.delete'))
+              a.btn.btn-primary(href=`/tasks/${task.id}/edit`)= t('views.users.edit')
+              +buttonTo(`/tasks/${task.id}`, 'delete')(class="btn btn-danger" value=t('views.users.delete'))

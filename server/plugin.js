@@ -108,6 +108,29 @@ const registerPlugins = async (app) => {
   // @ts-ignore
   )(...args));
 
+  app.decorateRequest('getTaskData', async (task) => {
+    const {
+      creatorId,
+      executorId,
+      statusId,
+    } = task;
+    const creator = await app.objection.models.user.query().findById(creatorId);
+    const executor = executorId ? await app.objection.models.user.query().findById(executorId) : '';
+    const status = await app.objection.models.status.query().findById(statusId);
+    // const labels = await task.$relatedQuery('labels');
+
+    return {
+      id: task.id,
+      name: task.name,
+      creator: creator.getFullName(),
+      executor: executor ? executor.getFullName() : '',
+      status: status.name,
+      // labels: labels.map((label) => label.name),
+      description: task.description,
+      createdAt: task.createdAt,
+    };
+  });
+
   await app.register(fastifyMethodOverride);
   await app.register(fastifyObjectionjs, {
     knexConfig: knexConfig[mode],

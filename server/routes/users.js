@@ -76,6 +76,16 @@ export default (app) => {
         return reply;
       }
 
+      const currentUserTasks = await app.objection.models.task
+        .query()
+        .where({ executorId: req.params.id })
+        .orWhere({ creatorId: req.params.id });
+
+      if (currentUserTasks.length > 0) {
+        req.flash('error', i18next.t('flash.users.delete.error'));
+        return reply.redirect(app.reverse('users'));
+      }
+
       try {
         await app.objection.models.user.query().deleteById(req.params.id);
         req.logout();

@@ -1,7 +1,8 @@
 // @ts-check
 const { Model } = require('objection');
 const objectionUnique = require('objection-unique');
-const path = require('path');
+const User = require('./User.cjs');
+const Status = require('./Status.cjs');
 const BaseModel = require('./BaseModel.cjs');
 
 const unique = objectionUnique({ fields: ['name'] });
@@ -18,7 +19,7 @@ module.exports = class Task extends unique(BaseModel) {
       properties: {
         id: { type: 'integer' },
         name: { type: 'string', minLength: 1, maxLength: 255 },
-        description: { type: 'string', minLength: 1, maxLength: 255 },
+        description: { type: 'string' },
         statusId: { type: 'integer' },
         creatorId: { type: 'integer' },
         executorId: { type: 'integer' },
@@ -30,17 +31,17 @@ module.exports = class Task extends unique(BaseModel) {
     return {
       creator: {
         relation: Model.BelongsToOneRelation,
-        modelClass: path.join(__dirname, 'User'),
+        modelClass: User,
         join: {
-          from: 'tasks.creator_id',
+          from: 'tasks.creatorId',
           to: 'users.id',
         },
       },
       executor: {
         relation: Model.BelongsToOneRelation,
-        modelClass: path.join(__dirname, 'User'),
+        modelClass: User,
         join: {
-          from: 'tasks.executor_id',
+          from: 'tasks.executorId',
           to: 'users.id',
         },
       },
@@ -58,9 +59,9 @@ module.exports = class Task extends unique(BaseModel) {
       // },
       status: {
         relation: Model.BelongsToOneRelation,
-        modelClass: path.join(__dirname, 'Status'),
+        modelClass: Status,
         join: {
-          from: 'tasks.status_id',
+          from: 'tasks.statusId',
           to: 'statuses.id',
         },
       },

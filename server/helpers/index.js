@@ -25,6 +25,19 @@ export default (app) => ({
         throw new Error(`Unknown flash type: '${type}'`);
     }
   },
+  getEntityName(entity, type) {
+    const [match] = type.match(/status|executor|label/ig);
+    switch (match) {
+      case 'executor':
+        return entity.getFullName();
+      case 'status':
+        return entity.name;
+      case 'label':
+        return entity.name;
+      default:
+        throw new Error(`Unknown entity type: '${type}'`);
+    }
+  },
   isSameId({ id }, type, entity) {
     const {
       executorId,

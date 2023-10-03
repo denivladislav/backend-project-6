@@ -28,7 +28,7 @@ module.exports = class Status extends unique(BaseModel) {
         relation: Model.BelongsToOneRelation,
         modelClass: path.join(__dirname, 'User'),
         join: {
-          from: 'statuses.creator_id',
+          from: 'statuses.creatorId',
           to: 'users.id',
         },
       },
@@ -37,7 +37,7 @@ module.exports = class Status extends unique(BaseModel) {
         modelClass: path.join(__dirname, 'Task'),
         join: {
           from: 'status.id',
-          to: 'task.status_id',
+          to: 'task.statusId',
         },
       },
     };

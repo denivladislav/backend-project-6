@@ -53,6 +53,15 @@ export default (app) => {
       }
     })
     .delete('/statuses/:id', async (req, reply) => {
+      const associatedTask = await app.objection.models.task
+        .query()
+        .findOne({ statusId: req.params.id });
+
+      if (associatedTask) {
+        req.flash('error', i18next.t('flash.statuses.delete.error'));
+        return reply.redirect(app.reverse('taskStatuses'));
+      }
+
       try {
         await app.objection.models.status.query().deleteById(req.params.id);
         req.flash('info', i18next.t('flash.statuses.delete.success'));

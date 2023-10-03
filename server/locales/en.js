@@ -41,6 +41,20 @@ export default {
           success: 'Status deleted successfully',
         },
       },
+      tasks: {
+        create: {
+          error: 'Failed to create task',
+          success: 'Task created successfully',
+        },
+        edit: {
+          error: 'Failed to edit task',
+          success: 'Task edited successfully',
+        },
+        delete: {
+          error: 'Failed to delete task',
+          success: 'Task deleted successfully',
+        },
+      },
       accessError: 'Access denied! You can not edit or delete another user',
       authError: 'Access denied! Please login',
     },

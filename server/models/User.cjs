@@ -1,7 +1,8 @@
 // @ts-check
 const { Model } = require('objection');
 const objectionUnique = require('objection-unique');
-const path = require('path');
+const Task = require('./Task.cjs');
+const Status = require('./Status.cjs');
 const BaseModel = require('./BaseModel.cjs');
 const encrypt = require('../lib/secure.cjs');
 
@@ -10,6 +11,10 @@ const unique = objectionUnique({ fields: ['email'] });
 module.exports = class User extends unique(BaseModel) {
   static get tableName() {
     return 'users';
+  }
+
+  getFullName() {
+    return `${this.firstname} ${this.lastname}`;
   }
 
   static get jsonSchema() {
@@ -38,36 +43,36 @@ module.exports = class User extends unique(BaseModel) {
     return {
       status: {
         relation: Model.HasManyRelation,
-        modelClass: path.join(__dirname, 'Status'),
+        modelClass: Status,
         join: {
           from: 'users.id',
-          to: 'statuses.creator_id',
+          to: 'statuses.creatorId',
         },
       },
       task: {
         relation: Model.HasManyRelation,
-        modelClass: path.join(__dirname, 'Task'),
+        modelClass: Task,
         join: {
           from: 'users.id',
-          to: 'tasks.creator_id',
+          to: 'tasks.creatorId',
         },
       },
       task_executor: {
         relation: Model.HasManyRelation,
-        modelClass: path.join(__dirname, 'Task'),
+        modelClass: Task,
         join: {
           from: 'users.id',
-          to: 'tasks.executor_id',
+          to: 'tasks.executorId',
         },
       },
-      label: {
-        relation: Model.HasManyRelation,
-        modelClass: path.join(__dirname, 'Label'),
-        join: {
-          from: 'users.id',
-          to: 'labels.creator_id',
-        },
-      },
+      // label: {
+      //   relation: Model.HasManyRelation,
+      //   modelClass: path.join(__dirname, 'Label'),
+      //   join: {
+      //     from: 'users.id',
+      //     to: 'labels.creator_id',
+      //   },
+      // },
     };
   }
 };
