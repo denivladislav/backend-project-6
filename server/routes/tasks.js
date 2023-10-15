@@ -1,6 +1,7 @@
 // @ts-check
 
 import i18next from 'i18next';
+import _ from 'lodash';
 
 export default (app) => {
   app
@@ -14,7 +15,10 @@ export default (app) => {
       const task = new app.objection.models.task();
       const statuses = await app.objection.models.status.query();
       const executors = await app.objection.models.user.query();
-      reply.render('tasks/new', { task, statuses, executors });
+      const labels = await app.objection.models.label.query();
+      reply.render('tasks/new', {
+        task, statuses, labels, executors,
+      });
       return reply;
     })
     .get('/tasks/:id', { name: 'viewTask' }, async (req, reply) => {
@@ -29,18 +33,17 @@ export default (app) => {
         reply.redirect(app.reverse('root'));
         return reply;
       }
-      const task = await app.objection.models.task.query().findById(req.params.id);
-      // const task = await models.task.query().findById(id).withGraphFetched('labels');
-      // _.update(task, 'labels', (labels) => labels.map((label) => label.id));
+      const task = await app.objection.models.task.query().findById(req.params.id).withGraphFetched('labels');
+      _.update(task, 'labels', (labels) => labels.map((label) => label.id));
 
       const executors = await app.objection.models.user.query();
       const statuses = await app.objection.models.status.query();
-      // const labels = await models.label.query();
+      const labels = await app.objection.models.label.query();
       reply.render('tasks/edit', {
         task,
         executors,
         statuses,
-        // labels,
+        labels,
       });
       return reply;
     })
@@ -65,15 +68,16 @@ export default (app) => {
           executorId: Number(executorId),
           creatorId: Number(req.user.id),
         });
+        const labelsIds = _.has(req.body.data, 'labels') ? [...req.body.data.labels] : [];
         await app.objection.models.task.transaction(async (trx) => {
-          // const labels = await models.label.query(trx).findByIds(labelsIds);
+          const labels = await app.objection.models.label.query(trx).findByIds(labelsIds);
           await app.objection.models.task.query(trx).upsertGraph(
             {
               ...validTask,
-              // labels,
+              labels,
             },
-            // { relate: true, unrelate: true, noUpdate: ['labels'] },
-            { relate: true, unrelate: true },
+            { relate: true, unrelate: true, noUpdate: ['labels'] },
+            // { relate: true, unrelate: true },
           );
         });
         req.flash('info', i18next.t('flash.tasks.create.success'));
@@ -89,9 +93,10 @@ export default (app) => {
     })
     .patch('/tasks/:id', async (req, reply) => {
       const taskId = Number(req.params.id);
-      const task = await app.objectoion.models.task.query().findById(taskId);
+      const task = await app.objection.models.task.query().findById(taskId);
       const statuses = await app.objection.models.status.query();
       const executors = await app.objection.models.user.query();
+      const labelsIds = _.has(req.body.data, 'labels') ? [...req.body.data.labels] : [];
 
       try {
         const { statusId, executorId } = req.body.data;
@@ -102,17 +107,17 @@ export default (app) => {
           creatorId: Number(req.user.id),
         });
         await app.objection.models.task.transaction(async (trx) => {
-          // const labels = await models.label.query(trx).findByIds(labelIds);
+          const labels = await app.objection.models.label.query(trx).findByIds(labelsIds);
           await app.objection.models.task.query(trx).upsertGraph(
             {
               id: taskId,
               ...validTask,
-              // labels,
+              labels,
             },
             {
               relate: true,
               unrelate: true,
-              // noUpdate: ['labels'],
+              noUpdate: ['labels'],
             },
           );
         });
@@ -120,7 +125,6 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.edit.success'));
         reply.redirect(app.reverse('tasks'));
       } catch ({ data: errors }) {
-        console.log(errors);
         req.flash('error', i18next.t('flash.tasks.edit.error'));
         reply.render('tasks/edit', {
           task,

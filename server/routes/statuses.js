@@ -59,7 +59,7 @@ export default (app) => {
 
       if (associatedTask) {
         req.flash('error', i18next.t('flash.statuses.delete.error'));
-        return reply.redirect(app.reverse('taskStatuses'));
+        return reply.redirect(app.reverse('statuses'));
       }
 
       try {

@@ -11,5 +11,6 @@ block content
       textarea.form-control(id="data_description" name="data[description]" rows="3")= task.description
     +select(task, statuses, 'statusId', t('views.tasks.status'), errors)(type="text")
     +select(task, executors, 'executorId', t('views.tasks.executor'), errors)(type="text")
+    +select(task, labels, 'labels', t('views.tasks.labels'), errors, true)(type="text")
     +input(name="_method" type="hidden" value="PATCH")
     +submit(task)(value=t('views.tasks.save'))

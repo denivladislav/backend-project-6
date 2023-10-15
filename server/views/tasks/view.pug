@@ -20,12 +20,12 @@ block content
         .row.p-1
           .col= t('views.tasks.createdAt')
           .col= task.createdAt
-        //- .row.p-1
-        //-   .col
-        //-     h6= t('views.tasks.view.labels')
-        //-     ul
-        //-       each label in task.labels
-        //-         li= label
+        .row.p-1
+          .col
+            h6= t('views.tasks.labels')
+            ul
+              each label in task.labels
+                li= label
         .row.p-1
           .d-flex.gap-1
               a.btn.btn-primary(href=`/tasks/${task.id}/edit`)= t('views.users.edit')

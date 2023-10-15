@@ -1,14 +1,15 @@
 // @ts-check
 const { Model } = require('objection');
 const objectionUnique = require('objection-unique');
-const path = require('path');
+// const path = require('path');
 const BaseModel = require('./BaseModel.cjs');
+const User = require('./User.cjs');
 
 const unique = objectionUnique({ fields: ['name'] });
 
-module.exports = class Status extends unique(BaseModel) {
+module.exports = class Label extends unique(BaseModel) {
   static get tableName() {
-    return 'statuses';
+    return 'labels';
   }
 
   static get jsonSchema() {
@@ -23,21 +24,28 @@ module.exports = class Status extends unique(BaseModel) {
   }
 
   static get relationMappings() {
+    // eslint-disable-next-line global-require
+    const Task = require('./Task.cjs');
+
     return {
-      user: {
+      owner: {
         relation: Model.BelongsToOneRelation,
-        modelClass: path.join(__dirname, 'User'),
+        modelClass: User,
         join: {
-          from: 'statuses.creatorId',
+          from: 'labels.creatorId',
           to: 'users.id',
         },
       },
       task: {
-        relation: Model.HasManyRelation,
-        modelClass: path.join(__dirname, 'Task'),
+        relation: Model.ManyToManyRelation,
+        modelClass: Task,
         join: {
-          from: 'status.id',
-          to: 'task.statusId',
+          from: 'labels.id',
+          through: {
+            from: 'taskLabels.labelId',
+            to: 'taskLabels.taskId',
+          },
+          to: 'tasks.id',
         },
       },
     };

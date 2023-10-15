@@ -117,7 +117,7 @@ const registerPlugins = async (app) => {
     const creator = await app.objection.models.user.query().findById(creatorId);
     const executor = executorId ? await app.objection.models.user.query().findById(executorId) : '';
     const status = await app.objection.models.status.query().findById(statusId);
-    // const labels = await task.$relatedQuery('labels');
+    const labels = await task.$relatedQuery('labels');
 
     return {
       id: task.id,
@@ -125,7 +125,7 @@ const registerPlugins = async (app) => {
       creator: creator.getFullName(),
       executor: executor ? executor.getFullName() : '',
       status: status.name,
-      // labels: labels.map((label) => label.name),
+      labels: labels.map((label) => label.name),
       description: task.description,
       createdAt: task.createdAt,
     };

@@ -4,6 +4,8 @@ const objectionUnique = require('objection-unique');
 const Task = require('./Task.cjs');
 const Status = require('./Status.cjs');
 const BaseModel = require('./BaseModel.cjs');
+const Label = require('./Label.cjs');
+
 const encrypt = require('../lib/secure.cjs');
 
 const unique = objectionUnique({ fields: ['email'] });
@@ -65,14 +67,14 @@ module.exports = class User extends unique(BaseModel) {
           to: 'tasks.executorId',
         },
       },
-      // label: {
-      //   relation: Model.HasManyRelation,
-      //   modelClass: path.join(__dirname, 'Label'),
-      //   join: {
-      //     from: 'users.id',
-      //     to: 'labels.creator_id',
-      //   },
-      // },
+      label: {
+        relation: Model.HasManyRelation,
+        modelClass: Label,
+        join: {
+          from: 'users.id',
+          to: 'labels.creatorId',
+        },
+      },
     };
   }
 };
