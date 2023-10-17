@@ -5,6 +5,7 @@ import path from 'path';
 import fastifyStatic from '@fastify/static';
 // NOTE: не поддердивает fastify 4.x
 // import fastifyErrorPage from 'fastify-error-page';
+import Rollbar from 'rollbar';
 import fastifyView from '@fastify/view';
 import fastifyFormbody from '@fastify/formbody';
 import fastifySecureSession from '@fastify/secure-session';
@@ -79,6 +80,20 @@ const addHooks = (app) => {
   });
 };
 
+const setupErrorHandler = (app) => {
+  const rollbar = new Rollbar({
+    accessToken: '0279b683c9804ecb90fa6c8a6fcec2f8',
+    captureUncaught: true,
+    captureUnhandledRejections: true,
+  });
+
+  app.setErrorHandler((error) => {
+    rollbar.error(error);
+  });
+
+  return app;
+};
+
 const registerPlugins = async (app) => {
   await app.register(fastifySensible);
   // await app.register(fastifyErrorPage);
@@ -151,6 +166,8 @@ export default async (app, _options) => {
   setUpStaticAssets(app);
   addRoutes(app);
   addHooks(app);
+
+  setupErrorHandler(app);
 
   return app;
 };

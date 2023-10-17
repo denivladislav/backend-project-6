@@ -165,6 +165,10 @@ export default {
           more: 'Learn more',
         },
       },
+      filter: {
+        apply: 'Apply',
+        createdByCurrentUser: 'Created by me',
+      },
     },
   },
 };

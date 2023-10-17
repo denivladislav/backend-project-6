@@ -1,0 +1,11 @@
++formFor()(action=route('tasks') method='get').form-inline.mb-2
+  +selectList(task, statuses, 'status', t('views.tasks.status'))(class="ml-2 mr-3")
+  +selectList(task, executors, 'executor', t('views.tasks.executor'))(class="ml-2 mr-3")
+  +selectList(task, labels, 'label', t('views.tasks.labels'))(class="ml-2 mr-3")
+  .form-group.form-check.mb-2
+    if task.isCreatorUser
+      input.form-check-input(id="data_isCreatorUser" type="checkbox" name="isCreatorUser" checked)
+    else
+      input.form-check-input(id="data_isCreatorUser" type="checkbox" name="isCreatorUser")
+    label.form-check-label(for="data_isCreatorUser")= t('views.filter.createdByCurrentUser')
+  +submit()(value=t('views.filter.apply') class='ml-3')

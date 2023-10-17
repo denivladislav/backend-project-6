@@ -7,6 +7,7 @@ block header
       a.btn.btn-primary(href=route('newTask'))= t('views.tasks.new.createTask')
 
 block content
+  include ./filter.pug
   table.table.table-striped
     thead
       tr

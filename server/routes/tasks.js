@@ -6,9 +6,30 @@ import _ from 'lodash';
 export default (app) => {
   app
     .get('/tasks', { name: 'tasks' }, async (req, reply) => {
-      const tasks = await app.objection.models.task.query();
+      // const tasks = await app.objection.models.task.query();
+      const executors = await app.objection.models.user.query();
+      const statuses = await app.objection.models.status.query();
+      const labels = await app.objection.models.label.query();
+      const task = reply.request.query || new app.objection.models.task();
+
+      const {
+        executor,
+        status,
+        label,
+        isCreatorUser,
+      } = task;
+
+      const tasks = await app.objection.models.task.query()
+        .modify('byStatus', status)
+        .modify('byExecutor', executor)
+        .modify('byLabel', label, app.objection.knex)
+        .modify('byCreator', isCreatorUser, req.user.id)
+        .orderBy('id');
+
       const formattedTasks = await Promise.all(tasks.map(req.getTaskData));
-      reply.render('tasks/index', { tasks: formattedTasks });
+      reply.render('tasks/index', {
+        task, executors, statuses, labels, tasks: formattedTasks,
+      });
       return reply;
     })
     .get('/tasks/new', { name: 'newTask' }, async (req, reply) => {

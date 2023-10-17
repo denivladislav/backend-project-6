@@ -13,6 +13,23 @@ module.exports = class Task extends unique(BaseModel) {
     return 'tasks';
   }
 
+  static get modifiers() {
+    return {
+      byStatus(query, statusId) {
+        if (statusId) query.where('statusId', statusId);
+      },
+      byExecutor(query, executorId) {
+        if (executorId) query.where('executorId', executorId);
+      },
+      byLabel(query, labelId, knex) {
+        if (labelId) query.whereExists(knex('task_labels').whereRaw('label_id = ?', labelId).whereRaw('task_labels.task_id = tasks.id'));
+      },
+      byCreator(query, isCreatorUser, userId) {
+        if (isCreatorUser) query.where('creatorId', userId);
+      },
+    };
+  }
+
   static get jsonSchema() {
     return {
       type: 'object',
