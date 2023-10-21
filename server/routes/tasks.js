@@ -103,10 +103,10 @@ export default (app) => {
         });
         req.flash('info', i18next.t('flash.tasks.create.success'));
         reply.redirect(app.reverse('tasks'));
-      } catch (error) {
+      } catch ({ data: errors }) {
         req.flash('error', i18next.t('flash.tasks.create.error'));
         reply.render('tasks/new', {
-          task, statuses, executors, errors: error.data,
+          task, statuses, executors, errors,
         });
       }
 
