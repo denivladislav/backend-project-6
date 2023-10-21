@@ -9,5 +9,5 @@ block content
     +input(editUser, 'lastName', t('views.users.lastName'), errors)(type="text")(value=user.lastName)
     +input(editUser, 'email', t('views.users.email'), errors)(type="text")(value=user.email)
     +input({}, 'password', t('views.users.password'), errors)(type="password")
-    +input(name="_method" type="hidden" value="PATCH")
-    +submit()(value=t('views.users.edit'))
+    +input(name="_method" type="hidden" value="PATCH" class='d-none')
+    +submit(editUser)(value=t('views.users.edit'))
