@@ -103,6 +103,7 @@ export default {
         createdAt: 'Дата создания',
         actions: 'Действия',
         edit: 'Изменить',
+        editUser: 'Изменить пользователя',
         save: 'Сохранить',
         delete: 'Удалить',
         new: {
