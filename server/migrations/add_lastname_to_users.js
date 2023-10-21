@@ -2,7 +2,7 @@
 
 export const up = (knex) => (
   knex.schema.table('users', (table) => {
-    table.string('last_name')
+    table.string('last_name');
   })
 );
 
