@@ -5,6 +5,6 @@ block header
 
 block content
   +formFor()(action=`/labels/${label.id}` method="post")
-    +input(editLabel, 'name', t('views.labels.name'), errors)(type="text")(value=label.name)
-    +input(name="_method" type="hidden" value="PATCH")
-    +submit(editLabel)(value=t('views.labels.save'))
+    +input(label, 'name', errors, t('views.labels.name'))(type="text")
+    input(name="_method" type="hidden" value="PATCH")
+    +submit(label)(value=t('views.labels.save'))

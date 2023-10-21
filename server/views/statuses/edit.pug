@@ -5,6 +5,6 @@ block header
 
 block content
   +formFor()(action=`/statuses/${status.id}` method="post")
-    +input(editStatus, 'name', t('views.statuses.name'), errors)(type="text")(value=status.name)
-    +input(name="_method" type="hidden" value="PATCH")
-    +submit(editStatus)(value=t('views.statuses.save'))
+    +input(status, 'name', errors, t('views.statuses.name'))(type="text")
+    input(name="_method" type="hidden" value="PATCH")
+    +submit(status)(value=t('views.statuses.save'))

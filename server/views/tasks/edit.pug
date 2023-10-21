@@ -5,12 +5,12 @@ block header
 
 block content
   +formFor()(action=`/tasks/${task.id}` method="post")
-    +input(task, 'name', t('views.tasks.name'), errors)(type="text")
+    +input(task, 'name', errors, t('views.tasks.name'))(type="text")
     .mb-3.form-group
       label(for="data_description")= t('views.tasks.description')
       textarea.form-control(id="data_description" name="data[description]" rows="3")= task.description
     +select(task, statuses, 'statusId', t('views.tasks.status'), errors)(type="text")
     +select(task, executors, 'executorId', t('views.tasks.executor'), errors)(type="text")
     +select(task, labels, 'labels', t('views.tasks.labels'), errors, true)(type="text")
-    +input(name="_method" type="hidden" value="PATCH")
+    input(name="_method" type="hidden" value="PATCH")
     +submit(task)(value=t('views.tasks.save'))
