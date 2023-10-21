@@ -47,11 +47,16 @@ export default (app) => {
       return reply;
     })
     .patch('/users/:id', async (req, reply) => {
+      console.log('Patch!!!');
       try {
         const patchForm = await app.objection.models.user.fromJson(req.body.data);
         const user = await app.objection.models.user.query().findById(req.params.id);
 
+        console.log('user', user);
+
         await user.$query().patch(patchForm);
+
+        console.log('patchForm', patchForm);
 
         req.flash('info', i18next.t('flash.users.edit.success'));
         reply.redirect('/users');
