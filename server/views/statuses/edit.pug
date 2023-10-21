@@ -1,10 +1,21 @@
+//- extends ../layouts/application.pug
+
+//- block header
+//-   = t('views.statuses.edit')
+
+//- block content
+//-   +formFor()(action=`/statuses/${status.id}` method="post")
+//-     +input(status, 'name', errors, t('views.statuses.name'))(type="text")
+//-     input(name="_method" type="hidden" value="PATCH")
+//-     +submit()(value=t('views.statuses.save'))
+
 extends ../layouts/application.pug
 
 block header
-  = t('views.statuses.edit')
+  = t('views.statuses.editStatus')
 
 block content
   +formFor()(action=`/statuses/${status.id}` method="post")
-    +input(status, 'name', errors, t('views.statuses.name'))(type="text")
-    input(name="_method" type="hidden" value="PATCH")
-    +submit()(value=t('views.statuses.save'))
+    input(name='_method' type='hidden' value='patch')
+    +input(status, 'name', errors, t('views.statuses.name'))(type="text") 
+    +submit()(value=t('views.statuses.edit'))

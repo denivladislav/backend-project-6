@@ -12,5 +12,5 @@ block content
     +select(task, statuses, 'statusId', t('views.tasks.status'), errors)(type="text")
     +select(task, executors, 'executorId', t('views.tasks.executor'), errors)(type="text")
     +select(task, labels, 'labels', t('views.tasks.labels'), errors, true)(type="text")
-    input(name="_method" type="hidden" value="PATCH")
+    input(name="_method" type="hidden" value="patch")
     +submit()(value=t('views.tasks.save'))

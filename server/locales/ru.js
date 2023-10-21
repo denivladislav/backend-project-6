@@ -117,6 +117,7 @@ export default {
         createdAt: 'Дата создания',
         actions: 'Действия',
         edit: 'Изменить',
+        editStatus: 'Изменить статус',
         save: 'Изменить',
         delete: 'Удалить',
         new: {
