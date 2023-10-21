@@ -2,8 +2,8 @@
 
 export const up = (knex) => (
   knex.schema.table('users', (table) => {
-    table.string('firstname')
+    table.string('first_name')
   })
 );
 
-export const down = (knex) => knex.schema.table('users', (table) => table.dropColumn('firstname'));
+export const down = (knex) => knex.schema.table('users', (table) => table.dropColumn('first_name'));

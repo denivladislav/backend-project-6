@@ -95,8 +95,8 @@ export default {
       },
       users: {
         id: 'ID',
-        firstname: 'First name',
-        lastname: 'Last name',
+        firstName: 'First name',
+        lastName: 'Last name',
         fullname: 'Full name',
         email: 'Email',
         password: 'Password',

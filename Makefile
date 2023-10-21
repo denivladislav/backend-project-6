@@ -6,6 +6,9 @@ install:
 db-migrate:
 	npx knex migrate:latest
 
+db-rollback:
+	npx knex migrate:rollback --all
+
 build:
 	npm run build
 
