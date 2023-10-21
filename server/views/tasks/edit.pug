@@ -13,4 +13,4 @@ block content
     +select(task, executors, 'executorId', t('views.tasks.executor'), errors)(type="text")
     +select(task, labels, 'labels', t('views.tasks.labels'), errors, true)(type="text")
     input(name="_method" type="hidden" value="PATCH")
-    +submit(task)(value=t('views.tasks.save'))
+    +submit()(value=t('views.tasks.save'))

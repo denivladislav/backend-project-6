@@ -7,4 +7,4 @@ block content
   +formFor()(action=`/statuses/${status.id}` method="post")
     +input(status, 'name', errors, t('views.statuses.name'))(type="text")
     input(name="_method" type="hidden" value="PATCH")
-    +submit(status)(value=t('views.statuses.save'))
+    +submit()(value=t('views.statuses.save'))
