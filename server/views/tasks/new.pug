@@ -5,7 +5,7 @@ block header
 
 block content
   +formFor()(action=route('tasks') method='post')
-    +input(task, 'name', t('views.tasks.name'), errors)(type="text")
+    +input(task, 'name', errors, t('views.tasks.name'))(type="text")
     .mb-3.form-group
       label(for="data_description")= t('views.tasks.description')
       textarea.form-control(id="data_description" name="data[description]" rows="3")
