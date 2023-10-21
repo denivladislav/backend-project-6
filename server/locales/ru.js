@@ -134,8 +134,9 @@ export default {
         executor: 'Исполнитель',
         actions: 'Actions',
         labels: 'Метка',
-        edit: 'Edit',
-        save: 'Save',
+        edit: 'Изменить',
+        editTask: 'Изменить задачу',
+        save: 'Изменить',
         delete: 'Удалить',
         description: 'Описание',
         new: {
@@ -150,6 +151,7 @@ export default {
         actions: 'Действия',
         edit: 'Изменить',
         save: 'Изменить',
+        editLabel: 'Изменить метку',
         delete: 'Удалить',
         new: {
           createLabel: 'Создать метку',
