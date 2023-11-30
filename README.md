@@ -1,6 +1,7 @@
 # TO-DO
 
 A simple TO-DO that allows you to create tasks with statuses and labels.
+![TODO](https://github.com/denivladislav/backend-project-6/assets/71961494/33ec6eaa-34be-4ce7-82e2-85dab68ae32c)
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/denivladislav/backend-project-6/workflows/hexlet-check/badge.svg)](https://github.com/denivladislav/backend-project-6/actions)
